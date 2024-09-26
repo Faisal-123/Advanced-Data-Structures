@@ -8,7 +8,7 @@ struct Heap
 	T hep[CAP];
 	int i=1,p;
 	function<bool(T,T)> fun;
-	Heap(function<bool(T,T)> tp)
+	Heap(function<bool(T,T)> tp = less<T>())
 	{
 		fun=tp;
 	}
@@ -35,20 +35,34 @@ struct Heap
 	void pop()
 	{
 		i--;
-		swap(hep[1],hep[i]);
-		p=i;
+		p=1;
+		swap(hep[p],hep[i]);
 		while((p<<1)<i)
 		{
-			int lc=(p<<1),rc=lc|1;
+			int lc=(p<<1),rc=lc+1;
 			if(rc<i and fun(hep[lc],hep[rc]))
 			{
-				swap(hep[p],hep[rc]);
-				p=rc;
+				if(fun(hep[p],hep[rc]))
+				{
+					swap(hep[p],hep[rc]);
+					p=rc;
+				}
+				else
+				{
+					return;
+				}
 			}
 			else
 			{
-				swap(hep[p],hep[lc]);
-				p=lc;
+				if(fun(hep[p],hep[lc]))
+				{
+					swap(hep[p],hep[lc]);
+					p=lc;
+				}
+				else
+				{
+					return;
+				}
 			}
 		}
 	}
@@ -59,17 +73,14 @@ bool lessthan(int x,int y)
 }
 int main()
 {
-	Heap<int> tp(lessthan);
+	Heap<int> tp;
 	tp.push(1);
-	cout<<tp.top()<<endl;;
 	tp.push(10);
-	cout<<tp.top()<<endl;;
 	tp.push(100);
-	cout<<tp.top()<<endl;;
-	tp.pop();
 	cout<<tp.top()<<endl;
 	tp.pop();
 	cout<<tp.top()<<endl;
 	tp.pop();
+	cout<<tp.top()<<endl;
 	return 0;
 }
