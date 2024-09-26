@@ -99,7 +99,6 @@ struct Treap
 		}
 		else if(tmp->rc != NULL)
 		{
-			tmp->rc->par=tmp->par;
 			if(tmp->par==NULL)
 				root=tmp->rc;
 			else if(tmp==tmp->par->lc)
@@ -109,7 +108,6 @@ struct Treap
 		}
 		else if(tmp->lc != NULL)
 		{
-			tmp->lc->par=tmp->par;
 			if(tmp->par==NULL)
 				root=tmp->lc;
 			else if(tmp==tmp->par->lc)
@@ -121,12 +119,12 @@ struct Treap
 		{
 			tmp1=tmp;
 			tmp=successor(tmp);
-			tmp->rc=tmp->par;
 			if(tmp==tmp->par->lc)
 				tmp->par->lc=tmp->rc;
 			else
 				tmp->par->rc=tmp->rc;
 			tmp1->value=tmp->value;
+
 		}
 	}
 	node<T>* findNode(T x)
@@ -266,6 +264,18 @@ int main()
 	cur.insert(5);
 	cur.insert(6);
 	cur.insert(7);
+	cout<<cur.find(10)<<endl;
+	cout<<cur.find(3)<<endl;
+	cout<<cur.find(4)<<endl;
+
+	// cur.erase(3);
+
+	// cout<<cur.find(10)<<endl;
+	// cout<<cur.find(3)<<endl;
+	// cout<<cur.find(4)<<endl;
+
+	cur.erase(4);
+
 	cout<<cur.find(10)<<endl;
 	cout<<cur.find(3)<<endl;
 	cout<<cur.find(4)<<endl;

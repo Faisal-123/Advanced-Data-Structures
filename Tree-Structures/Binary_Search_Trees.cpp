@@ -100,6 +100,7 @@ struct BST
 			else
 				tmp->par->rc=tmp->rc;
 			tmp1->value=tmp->value;
+
 		}
 	}
 	node<T>* findNode(T x)
