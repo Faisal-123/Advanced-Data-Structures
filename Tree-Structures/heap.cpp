@@ -12,7 +12,7 @@ struct Heap
 	{
 		fun=tp;
 	}
-	void insert(T x)
+	void push(T x)
 	{
 		hep[i]=x;
 		p=i;
@@ -32,24 +32,44 @@ struct Heap
 	{
 		return hep[1];		
 	}
+	void pop()
+	{
+		i--;
+		swap(hep[1],hep[i]);
+		p=i;
+		while((p<<1)<i)
+		{
+			int lc=(p<<1),rc=lc|1;
+			if(rc<i and fun(hep[lc],hep[rc]))
+			{
+				swap(hep[p],hep[rc]);
+				p=rc;
+			}
+			else
+			{
+				swap(hep[p],hep[lc]);
+				p=lc;
+			}
+		}
+	}
 };
 bool lessthan(int x,int y)
 {
-	return (x>y);
+	return (x<y);
 }
 int main()
 {
 	Heap<int> tp(lessthan);
-	tp.insert(10);
+	tp.push(1);
 	cout<<tp.top()<<endl;;
-	tp.insert(1);
+	tp.push(10);
 	cout<<tp.top()<<endl;;
-	tp.insert(100);
+	tp.push(100);
 	cout<<tp.top()<<endl;;
-	tp.insert(-100);
-	tp.insert(-100);
-	tp.insert(-100);
-	tp.insert(-100);
+	tp.pop();
 	cout<<tp.top()<<endl;
+	tp.pop();
+	cout<<tp.top()<<endl;
+	tp.pop();
 	return 0;
 }
