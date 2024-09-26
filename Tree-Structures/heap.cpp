@@ -66,6 +66,14 @@ struct Heap
 			}
 		}
 	}
+	void clear()
+	{
+		i=1;
+	}
+	bool empty()
+	{
+		return (i==1);
+	}
 };
 bool lessthan(int x,int y)
 {
